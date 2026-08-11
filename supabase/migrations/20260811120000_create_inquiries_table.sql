@@ -1,5 +1,6 @@
 -- 해외플랜트산업설비과 홈페이지: 문의하기 폼 저장용 테이블
--- Supabase 대시보드 > SQL Editor 에서 실행하세요.
+-- 이 마이그레이션은 Supabase 대시보드 SQL Editor에서 2026-08-11에 이미 수동으로 적용되었습니다.
+-- (이 파일은 그 변경 이력을 기록/추적하기 위한 것으로, 같은 프로젝트 DB에 다시 실행할 필요는 없습니다.)
 
 create table if not exists public.inquiries (
   id uuid primary key default gen_random_uuid(),
@@ -16,6 +17,7 @@ alter table public.inquiries enable row level security;
 
 -- 누구나(anon 공개키) 새 문의를 "추가"만 할 수 있도록 허용
 -- (읽기/수정/삭제는 허용하지 않음 -> 다른 사람이 제출한 문의를 볼 수 없음)
+drop policy if exists "Allow public insert on inquiries" on public.inquiries;
 create policy "Allow public insert on inquiries"
   on public.inquiries
   for insert
